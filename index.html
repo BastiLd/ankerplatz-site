@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <!--
+      viewport-fit=cover: die Seite darf bis in die abgerundeten Ecken und
+      hinter die Home-Leiste reichen; die sichere Zone holen wir uns im CSS
+      über env(safe-area-inset-*) zurück.
+      Kein maximum-scale/user-scalable=no — Zoom bleibt ausdrücklich erlaubt.
+    -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <!-- Die Seite gibt es hell und dunkel; der Browser darf beides annehmen. -->
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#FBF9F5" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#1E291D" media="(prefers-color-scheme: dark)" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Ankerplatz" />
+    <meta
+      name="description"
+      content="Ankerplatz — ein ruhiger Ort für persönliche Geschichten rund um ADHS und Epilepsie."
+    />
+    <title>Ankerplatz</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚓</text></svg>"
+    />
+    <script type="module" crossorigin src="./assets/index-BP0X6tmG.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-DfIyfx5E.css">
+  </head>
+  <body>
+    <!--
+      Läuft noch vor React. Ohne dieses Schnipsel würde die Seite beim Laden
+      kurz hell aufblitzen, bevor der dunkle Modus greift — genau das, was man
+      auf einer reizarmen Seite nicht will.
+    -->
+    <script>
+      (function () {
+        try {
+          var wahl = localStorage.getItem('ankerplatz:theme');
+          var dunkel =
+            wahl === 'dark' ||
+            ((wahl === null || wahl === 'system') &&
+              window.matchMedia('(prefers-color-scheme: dark)').matches);
+          if (dunkel) {
+            document.documentElement.classList.add('dark');
+            document.documentElement.style.colorScheme = 'dark';
+          }
+        } catch (e) {
+          /* Privater Modus: dann startet die Seite eben hell. */
+        }
+      })();
+    </script>
+    <div id="root"></div>
+  </body>
+</html>
